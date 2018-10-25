@@ -1,0 +1,15 @@
+mysql:
+  adapter: mysql2
+  host: localhost
+  port: 3306
+  database: simply_translatable_test
+  username: root
+  encoding: utf8
+
+postgres:
+  adapter: postgresql
+  host: localhost
+  port: 5432
+  database: simply_translatable_test
+  username: postgres
+  encoding: utf8
