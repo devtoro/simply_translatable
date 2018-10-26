@@ -16,10 +16,6 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install simply_translatable
-
 ## Usage
 
 Working exclusively with ActiveRecord. 
