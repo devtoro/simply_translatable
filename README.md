@@ -39,7 +39,7 @@ Following instance methods are available:
 
     article.title_translations # Returns all translations stored in db
     article.title # Return the translation for the default locale
-for each available locale, a method is avialable. If we have to available locales [:en, :el] we can get each translation as follows:
+for each available locale, a method is avialable. If we have the following available locales [:en, :el] we can get each translation as follows:
 
     article.title_en # en translation
     article.title_el # el translation
