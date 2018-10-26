@@ -13,4 +13,17 @@ ActiveRecord::Schema.define do
       t.text :title
     end
   end
+
+  # If uncomented, raises ArgumentError as translatable fields should be of apropriate types
+  # hstore for Postgresql
+  # text, longtext for Mysql
+  # Also uncomment line 5 in models/article.rb
+  #
+  # create_table :articles, :force => true do |t|
+  #   if IS_POSTGRES
+  #     t.text :title
+  #   elsif IS_MYSQL
+  #     t.string :title
+  #   end
+  # end
 end
