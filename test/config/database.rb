@@ -35,7 +35,7 @@ module SimplyTranslatable
       end
 
       def in_memory?
-        config[DRIVER]['database'] != ':memory:'
+        config[DRIVER]['database'].present?
       end
 
       def create!
