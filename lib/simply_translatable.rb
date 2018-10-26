@@ -14,8 +14,15 @@ module SimplyTranslatable
 
 
     def translates(*attributes)
+      adapter = self.connection.instance_variable_get('@config')[:adapter]
       attributes.each do |att|
-        @@translatables << att
+        type = self.columns.select{|t| t.name==att.to_s}.first.sql_type_metadata.type
+
+        if (adapter=="postgresql") && (type==:hstore)
+          @@translatables << att
+        else
+          raise ArgumentError, "Translatable fields should be of type 'hstore', instead attribute #{att} has_type #{type}"
+        end
       end
     end
 
