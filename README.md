@@ -9,7 +9,7 @@ So far tested for only postgresql.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'simply_translatable'
+gem 'simply_translatable', git: 'https://github.com/devtoro/simply_translatable.git'
 ```
 
 And then execute:
