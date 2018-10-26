@@ -15,5 +15,11 @@ class AccessorsTest < MiniTest::Spec
 
       assert_equal false, page.valid?
     end
+
+    it "Sets default locales as empty if none given" do
+      page = Page.new title: {en: 'test'}
+      page.save
+      assert_equal true, page.title.keys.include?('de')
+    end
   end
 end
