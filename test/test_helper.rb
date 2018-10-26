@@ -1,5 +1,4 @@
 $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
-require "simply_translatable"
 require "minitest/autorun"
 require "minitest/reporters"
 require "minitest/spec"
@@ -8,7 +7,6 @@ require 'pry'
 
 Minitest::Reporters.use!
 Dir[File.expand_path('../config/**/*.rb', __FILE__)].each { |f| require f }
-Dir[File.expand_path('../data/models/*.rb', __FILE__)].each { |f| require f }
 # Require all models create for testing
 # require File.expand_path('../data/models', __FILE__)
 
@@ -16,9 +14,21 @@ Dir[File.expand_path('../data/models/*.rb', __FILE__)].each { |f| require f }
 SimplyTranslatable::Test::Database.connect
 DatabaseCleaner.strategy = :transaction
 
+# Require here in order to have DB connection
+require "simply_translatable"
+
+# Set up I18n configuration
+I18n.enforce_available_locales = true
+I18n.available_locales = [ :en, :de ]
+
+# Require all models here in order to have all needed functionality
+Dir[File.expand_path('../data/models/*.rb', __FILE__)].each { |f| require f }
+
+
 class MiniTest::Spec
   before :each do
     DatabaseCleaner.start
+    I18n.locale = I18n.default_locale = :en
   end
 
   after :each do
