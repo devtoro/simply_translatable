@@ -32,16 +32,6 @@ class MiniTest::Spec
       rescue ActiveRecord::StatementInvalid
         false
       end
-
-      def index_exists_on?(column_name)
-        connection.indexes(table_name).any? { |index| index.columns == [column_name.to_s] }
-      rescue ActiveRecord::StatementInvalid
-        false
-      end
-
-      def unique_index_exists_on?(*columns)
-        connection.indexes(table_name).any? { |index| index.columns == columns && index.unique }
-      end
     end
   end
 end
