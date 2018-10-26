@@ -22,7 +22,7 @@ Working exclusively with ActiveRecord.
 
 For postgresql, all attributes that we need to store translations, should be of type hstore. Otherwise an ArgumentError is raised. Once the appropriate migration is run, we can store the translations in a Hash format as expected for hstore.
 
-Inside your model include the SimplyTranslatable module:
+Inside your model include the SimplyTranslatable module and define the attributes you need to store translations with the translates method:
 
     class Article < ActiveRecord::Base
       include SimplyTranslatable
