@@ -2,7 +2,7 @@
 
 This gem is still under development..
 
-So far tested for only postgresql.
+So far tested only for postgresql.
 
 ## Installation
 
