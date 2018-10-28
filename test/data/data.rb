@@ -1,5 +1,5 @@
 IS_POSTGRES = ActiveRecord::Base.connection.instance_values["config"][:adapter]=='postgresql'
-IS_MYSQL = ActiveRecord::Base.connection.instance_values["config"][:adapter]=='mysql'
+IS_MYSQL = ActiveRecord::Base.connection.instance_values["config"][:adapter]=='mysql2'
 
 ActiveRecord::Schema.define do
   if IS_POSTGRES
@@ -10,7 +10,7 @@ ActiveRecord::Schema.define do
     if IS_POSTGRES
       t.hstore :title
     elsif IS_MYSQL
-      t.text :title
+      t.json :title
     end
   end
 
