@@ -2,7 +2,7 @@
 
 This gem is still under development..
 
-So far tested for only postgresql.
+So far tested only for postgresql.
 
 ## Installation
 
@@ -16,17 +16,13 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install simply_translatable
-
 ## Usage
 
 Working exclusively with ActiveRecord. 
 
 For postgresql, all attributes that we need to store translations, should be of type hstore. Otherwise an ArgumentError is raised. Once the appropriate migration is run, we can store the translations in a Hash format as expected for hstore.
 
-Inside your model include the SimplyTranslatable module:
+Inside your model include the SimplyTranslatable module and define the attributes you need to store translations with the translates method:
 
     class Article < ActiveRecord::Base
       include SimplyTranslatable
@@ -43,7 +39,7 @@ Following instance methods are available:
 
     article.title_translations # Returns all translations stored in db
     article.title # Return the translation for the default locale
-for each available locale, a method is avialable. If we have to available locales [:en, :el] we can get each translation as follows:
+for each available locale, a method is avialable. If we have the following available locales [:en, :el] we can get each translation as follows:
 
     article.title_en # en translation
     article.title_el # el translation
