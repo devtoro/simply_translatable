@@ -1,16 +1,7 @@
 require File.expand_path('../../test_helper', __FILE__)
 
 class AccessorsTest < MiniTest::Spec
-  describe "Postgresql" do
-    it "Has translatables data types set to be hstore" do
-      begin
-        page = Page.new rescue nil
-        assert_equal false, page.nil?
-      rescue ArgumentError
-        assert_equal false, true
-      end
-    end
-
+  describe "Data testing for Postgresql or Mysql JSON" do
     # Available locales are [:en, :de]
     it "Throws error if save locale other than I18n available locales" do
       page = Page.new title: {ru: 'test'}
