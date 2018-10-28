@@ -2,7 +2,7 @@
 
 This gem is still under development..
 
-So far tested only for postgresql.
+So far tested only for POSTGRESQL and MySQL.
 
 ## Installation
 
@@ -18,36 +18,64 @@ And then execute:
 
 ## Usage
 
-Working exclusively with ActiveRecord. 
+Working exclusively with ActiveRecord.
 
-For postgresql, all attributes that we need to store translations, should be of type hstore. Otherwise an ArgumentError is raised. Once the appropriate migration is run, we can store the translations in a Hash format as expected for hstore.
+For POSTGRESQL, all translatable attributes should be of type hstore. For MySQL, all translatable attributes should be of type json. Otherwise an ArgumentError is raised. Once the appropriate migration is run, we can store the translations in a Hash format as expected for hstore/json type.
+
+Your migrations should be like the following one:
+
+for POSTGRESQL:
+    create_table :articles do |t|
+      t.hstore :title
+    end
+for MySQL (Version >= 8.0):
+    create_table :articles do |t|
+      t.json :title
+    end
 
 Inside your model include the SimplyTranslatable module and define the attributes you need to store translations with the translates method:
 
     class Article < ActiveRecord::Base
       include SimplyTranslatable
-      
+
       # title must be of type hstore
       translates :title
     end
 
 Let's assume our model name is Article and the translatable attribute is the title
 
-    article = Article.new
+    article = Article.new title: {en: 'Some text', el: 'Κείμενο για μετάφραση'}
 
 Following instance methods are available:
 
     article.title_translations # Returns all translations stored in db
     article.title # Return the translation for the default locale
-for each available locale, a method is avialable. If we have the following available locales [:en, :el] we can get each translation as follows:
+for each available locale, a method is available. If we have the following available locales [:en, :el] we can get each translation as follows:
 
     article.title_en # en translation
     article.title_el # el translation
 
 
+It should work for MySQL database, for text data type if attribute is serialised as JSON:
+
+  migration:
+    create_table :articles do |t|
+      t.text :title
+    end
+
+    class Article < ActiveRecord::Base
+      include SimplyTranslatable
+
+      serialize :title, JSON
+      translates :title
+    end
+
+But is not tested yet.
+
+
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/simply_translatable.
+Bug reports and pull requests are welcome on GitHub at https://github.com/devtoro/simply_translatable.
 
 ## License
 
