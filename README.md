@@ -25,10 +25,12 @@ For POSTGRESQL, all translatable attributes should be of type hstore. For MySQL,
 Your migrations should be like the following one:
 
 for POSTGRESQL:
+
     create_table :articles do |t|
       t.hstore :title
     end
 for MySQL (Version >= 8.0):
+
     create_table :articles do |t|
       t.json :title
     end
