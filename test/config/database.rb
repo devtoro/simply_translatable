@@ -9,7 +9,7 @@ module SimplyTranslatable
       extend self
 
       DB_CONFIG = File.expand_path('../database.yml', __FILE__)
-      DRIVER = 'postgres'
+      DRIVER = 'mysql'
       DEFAULT_STRATEGY = :transaction
 
       def load_db
@@ -19,6 +19,7 @@ module SimplyTranslatable
       def connect
         puts "CONFIG: #{config[DRIVER]}"
         ::ActiveRecord::Base.establish_connection config[DRIVER]
+        load_db
 
         if in_memory?
           ::ActiveRecord::Migration.verbose = false
