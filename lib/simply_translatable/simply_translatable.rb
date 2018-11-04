@@ -3,7 +3,7 @@ module SimplyTranslatable
     klass.extend(Translator)
     klass.after_initialize :set_translations
 
-    klass.send(:before_save, :set_default_locales)
+    klass.send(:before_validation, :set_default_locales)
     klass.send(:validate, :validate_locales)
   end
 
