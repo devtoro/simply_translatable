@@ -10,10 +10,18 @@ module SimplyTranslatable
         postgres = (adapter=="postgresql") && (type==:hstore)
         mysql = (adapter=='mysql2') && (type==:json)
 
-        if (postgres ^ mysql) && !(@@translatables.include?(att))
-          @@translatables << att
+        if (postgres ^ mysql)
+          unless @@translatables.include?(att)
+            @@translatables << att
+          end
         else
-          raise ArgumentError, "Translatable fields should be of type 'hstore', instead attribute #{att} has_type #{type}"
+          if postgres
+            raise ArgumentError, "Translatable fields should be of type 'hstore', instead attribute #{att} has_type #{type}"
+          elsif mysql
+            raise ArgumentError, "Translatable fields should be of type 'text' or 'longtext', instead attribute #{att} has_type #{type}"
+          else
+            raise ArgumentError, "Adapter should be mysql2 or postgres"
+          end
         end
       end
     end
