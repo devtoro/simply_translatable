@@ -3,8 +3,8 @@ module SimplyTranslatable
     klass.extend(Translator)
     klass.after_initialize :set_translations
 
-    klass.send(:validate, :validate_locales)
     klass.send(:before_save, :set_default_locales)
+    klass.send(:validate, :validate_locales)
   end
 
   def method_missing(m, *args, &block)
@@ -29,7 +29,9 @@ module SimplyTranslatable
 
   def set_default_locales
     self.class.get_translatables.each do |trans|
-      I18n.available_locales.each {|locale| self.read_attribute(trans)[locale.to_s] ||= ''}
+      I18n.available_locales.each do |locale| 
+        self.read_attribute(trans)[locale.to_s] ||= ''
+      end
     end
   end
 
