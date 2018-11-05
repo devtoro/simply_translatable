@@ -5,7 +5,7 @@ class AccessorsTest < MiniTest::Spec
     # Available locales are [:en, :de]
     it "Throws error if save locale other than I18n available locales" do
       page = Page.new title: {ru: 'test'}
-
+      
       assert_equal false, page.valid?
     end
 
