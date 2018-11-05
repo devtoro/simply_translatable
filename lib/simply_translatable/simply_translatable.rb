@@ -21,7 +21,8 @@ module SimplyTranslatable
 
   def validate_locales
     self.class.get_translatables.each do |trans|
-      if (self.read_attribute(trans).keys & I18n.available_locales.map(&:to_s)).empty?
+      false_locales = self.read_attribute(:title).keys.select{|locale| I18n.available_locales.index(locale.to_sym).nil?}
+      unless false_locales.empty?
         errors.add(trans, "Trying to save invalid locale. Please check I18n available locales.")
       end
     end
@@ -29,7 +30,7 @@ module SimplyTranslatable
 
   def set_default_locales
     self.class.get_translatables.each do |trans|
-      I18n.available_locales.each do |locale| 
+      I18n.available_locales.each do |locale|
         self.read_attribute(trans)[locale.to_s] ||= ''
       end
     end

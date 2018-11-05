@@ -1,6 +1,6 @@
 module SimplyTranslatable
   module Translator
-    @@translatables = []
+    @translatables = []
 
 
     def translates(*attributes)
@@ -18,7 +18,7 @@ module SimplyTranslatable
       end
 
       if (postgres ^ mysql)
-        @@translatables = attributes
+        @translatables = attributes
       else
         if postgres
           raise ArgumentError, "Translatable fields should be of type 'hstore', instead attribute #{att} has_type #{type}"
@@ -31,7 +31,7 @@ module SimplyTranslatable
     end
 
     def get_translatables
-      @@translatables
+      @translatables
     end
   end
 end
