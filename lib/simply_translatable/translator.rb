@@ -1,6 +1,6 @@
 module SimplyTranslatable
   module Translator
-    @@translatables = []
+    @translatables = []
 
 
     def translates(*attributes)
@@ -11,8 +11,8 @@ module SimplyTranslatable
         mysql = (adapter=='mysql2') && (type==:json)
 
         if (postgres ^ mysql)
-          unless @@translatables.include?(att)
-            @@translatables << att
+          unless @translatables.include?(att)
+            @translatables << att
           end
         else
           if postgres
@@ -27,7 +27,7 @@ module SimplyTranslatable
     end
 
     def get_translatables
-      @@translatables
+      @translatables
     end
   end
 end
